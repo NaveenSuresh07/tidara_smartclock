@@ -1,0 +1,7 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - backups/**
+    - build/**
+    - .dart_tool/**

@@ -1,0 +1,3 @@
+# Directory for physical Android device verification logs
+# Captured via scripts/collect_device_logs.ps1 or scripts/collect_device_logs.sh
+
