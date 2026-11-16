@@ -1,0 +1,134 @@
+name: Tidara Smartclock CI & Verification
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+    inputs:
+      run_emulator_tests:
+        description: 'Run Android emulator E2E tests (takes 15-20 min)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  quality_and_build:
+    name: Lint, Static Analysis, Unit/Widget Tests, Coverage & Release APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Environment & Toolchain
+        run: flutter doctor -v
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Check Code Formatting (dart format)
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Static Analysis (flutter analyze)
+        run: flutter analyze --fatal-infos --fatal-warnings
+
+      - name: Run Horological, Cryptographic & Architecture Test Suite
+        run: flutter test --coverage
+
+      - name: Run Android Kotlin JVM Unit Tests
+        run: |
+          cd android
+          ./gradlew :app:testDebugUnitTest
+
+      - name: Verify Test Coverage Threshold (>= 74.5%)
+        shell: bash
+        run: |
+          python3 -c "
+          lines = open('coverage/lcov.info').readlines()
+          hit = sum(int(l.strip().split(':')[1]) for l in lines if l.startswith('LH:'))
+          found = sum(int(l.strip().split(':')[1]) for l in lines if l.startswith('LF:'))
+          pct = (hit / found * 100) if found > 0 else 0
+          print(f'Verification Result: {hit}/{found} lines hit ({pct:.2f}% coverage)')
+          if pct < 74.5:
+              print(f'ERROR: Test coverage {pct:.2f}% is below required 74.5% threshold (measured - 1%).')
+              exit(1)
+          print('PASSED: Code coverage meets production quality threshold.')
+          "
+
+      - name: Upload Test Coverage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lcov-coverage-report
+          path: coverage/lcov.info
+          if-no-files-found: warn
+
+      - name: Build Android Release APK
+        run: flutter build apk --release
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: tidara-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+
+  emulator_integration_test:
+    name: Android Emulator Integration Test (reactivecircus)
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    # Gated on workflow_dispatch with run_emulator_tests == 'true' to avoid runner timeouts
+    # Emulator execution requires hardware acceleration not enabled on default runners.
+    if: github.event.inputs.run_emulator_tests == 'true'
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Enable KVM Hardware Acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run Integration Tests on Android Emulator (API 30)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
+          script: flutter test integration_test/app_test.dart
