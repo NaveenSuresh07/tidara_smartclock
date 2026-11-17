@@ -23,16 +23,16 @@ An Android clock app built with Flutter and Kotlin, featuring sunrise-based alar
 
 ## Demo Video
 
-🎬 **[Watch the Tidara App Demo Video (MP4, 2.96 MB)](https://naveensuresh07.github.io/tidara_smartclock/demo.mp4)** · [Direct download from GitHub Releases](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4)
+🎬 **[Watch the Tidara App Demo Video (MP4, 2.96 MB)](https://naveensuresh07.github.io/tidara_smartclock/demo.mp4)** · [Direct download from GitHub Releases](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.1/tidara-v1.0.1-demo.mp4)
 
 ---
 
 ## Download APK
 
-Pre-built release packages for Android ([GitHub Release v1.0.0](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)):
+Pre-built release packages for Android ([GitHub Release v1.0.1](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.1)):
 
-- 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-arm64.apk)** (17.54 MB) — Recommended for modern 64-bit Android phones.
-- 📦 **[Download tidara-v1.0.0-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-universal.apk)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
+- 📦 **[Download tidara-v1.0.1-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.1/tidara-v1.0.1-arm64.apk)** (17.54 MB) — Recommended for modern 64-bit Android phones.
+- 📦 **[Download tidara-v1.0.1-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.1/tidara-v1.0.1-universal.apk)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
 
 > **Installation Note:** Signed with a personal key and not distributed through Google Play, so Android may show an unknown-app warning when you sideload it. Choose 'Install anyway' to continue.
 
