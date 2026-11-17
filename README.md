@@ -41,7 +41,7 @@ Pre-built release package for Android:
 - **Sunrise Arc Dial:** Drag a bead along the solar arc to schedule alarms visually relative to natural dawn (e.g. *17m before sunrise*).
 - **NOAA Solar Calculation:** Computes exact dawn, sunrise, solar noon, and sunset for any coordinate on Earth with polar latitude domain guards.
 - **Optimal Sleep Window:** Calculates target bedtime based on healthy sleep duration targets (e.g. 7h 45m wind-down reminder).
-- **Soothing Acoustic Awakening:** Built-in preview button and synthesized harmonic tones (432Hz, 528Hz, 639Hz) to avoid harsh, stressful alarm tones.
+- **Calm Synthesized Tones:** Built-in preview button and synthesized harmonic chime tones (432 Hz, 528 Hz, 639 Hz) generated on-device without audio asset bloat.
 - **Native Android OS Integration:** Uses Kotlin `MethodChannel` with `AlarmManager.setExactAndAllowWhileIdle()`, `WakeLock`, and full-screen lockscreen wake intents (`FullScreenIntent`).
 - **Reboot Persistence:** `TidaraBootReceiver` restores scheduled alarms after device restarts or timezone changes.
 
@@ -59,7 +59,7 @@ Pre-built release package for Android:
   - `48m` (Double Interval)
   - `90m` (Deep Flow)
   - *Custom duration entry:* Supports any duration from 1 to 180 minutes.
-- **Acoustic Soundscapes:** Zero-dependency, on-device 16-bit PCM RIFF WAVE synthesis for solfeggio focus tones.
+- **Acoustic Soundscapes:** Zero-dependency, on-device 16-bit PCM RIFF WAVE synthesis for calm focus chimes.
 
 ### 4. Precision Chronometer
 - **Monotonic Clock:** Tracks elapsed microsecond deltas independent of UI frame rates.
@@ -69,7 +69,7 @@ Pre-built release package for Android:
 
 ### 5. Design System & Accessibility
 - **Dual-Mode Liquid Glass UI:** Translucent glass cards and buttons in Warm Light (`#F4F0E8`) and Deep Dark (`#14110F`) palettes.
-- **WCAG 2.1 AA Compliance:** Every foreground/background pair meets >= 4.5:1 contrast (>= 3:1 for large accent elements).
+- **Accessibility & Contrast:** Primary and secondary text meet standard WCAG 2.1 AA contrast ratios (primary text exceeding 14:1, secondary text at 4.5:1, and large interactive buttons exceeding 3:1).
 - **High-Contrast Mode Setting:** Optional toggle for users who need maximum contrast without translucency.
 - **Plain-Language Setting:** Toggle that simplifies all labels into everyday English.
 
@@ -79,13 +79,13 @@ Pre-built release package for Android:
 
 *These design choices reflect my goals for the app's user experience:*
 
-1. **Alarms tied to sunrise and the optimal sleep window:** Standard alarms focus solely on waking up at an arbitrary number, ignoring natural circadian rhythms. I tied the alarm scrubber to local sunrise and added the optimal sleep window card so users can visually align their sleep cycle with natural daylight and plan an adequate wind-down schedule.
-2. **High-contrast mode and WCAG 2.1 AA standards:** While liquid glass aesthetics look modern, legibility is non-negotiable. I ensured all text and icon pairs meet strict 4.5:1 contrast across both light and dark themes, and added a dedicated High-Contrast toggle for users who need crisp visual clarity without subtle transparency.
-3. **Plain-language labels as a first-class setting:** Not everyone wants astronomical or esoteric terms when setting an alarm. I created a plain-language setting that simplifies labels across all screens (e.g. changing "Dawn Rhythm" to "Alarm" and "Solar Focus" to "Focus Session") so users can choose between poetic and everyday terminology.
-4. **Armillary globe with live day and night display:** A flat list of city names and GMT numbers does not give users an intuitive feel for global time. The 3D globe with solar terminator curves lets users immediately see whether a colleague or family member across the world is in daylight, twilight, or the middle of the night.
-5. **Hourglass visualization and curated focus intervals:** Standard digital countdown clocks induce time anxiety. The tactile sand animation offers a calming visual sense of time elapsing. I selected presets for 12m (quick sprint), 24m (traditional focus block), 25m (Pomodoro), 48m (double session), and 90m (deep ultradian rhythm) to cover how people actually study and work.
-6. **Gentle "Solar Awakening" preview and harmonic tones:** Jarring smartphone alarms trigger an immediate morning stress spike. I synthesized harmonic solfeggio frequencies (432Hz, 528Hz, 639Hz) directly in code and added a quick "Preview Tone" chip so users can audition sounds at comfortable volumes and wake up peacefully.
-7. **What I would improve next:** The app is currently Android-only because exact background alarms and wake locks rely on native Kotlin platform services. My next milestone is writing the native iOS counterpart using the `UserNotifications` framework and iOS Live Activities for timer tracking.
+1. **Alarms tied to sunrise and target sleep duration:** Most clock apps require calculating morning alarms and bedtime backwards in your head. I designed the alarm dial to visually tie wake-up times to local dawn, alongside a target sleep duration indicator (defaulting to 7h 45m). This gives users a direct visual reference between when they want to wake up, local daylight, and when they should wind down in the evening.
+2. **Legibility first (WCAG 2.1 AA) and high-contrast support:** Translucent and frosted glass aesthetics often suffer from low contrast. I benchmarked the palette to maintain standard WCAG AA contrast (primary text exceeds 14:1, secondary text meets 4.5:1, and large interactive buttons exceed 3:1). I also implemented an optional High-Contrast toggle that replaces translucency with solid surfaces for users who prioritize maximum readability in direct sunlight or with visual impairments.
+3. **Plain-language labels as a configurable setting:** For a clock with solar and astronomical calculations, technical terminology (like 'solar noon', 'nautical twilight', or 'horological presets') can feel overwhelming. I built a Plain Language mode (enabled by default) that maps terms to everyday equivalents like 'Alarm', 'Focus Session', and 'Target Sleep'. Users who appreciate astronomical details can toggle the advanced horological terminology on at any time.
+4. **Interactive globe showing day and night:** A plain list of timezones and GMT offsets makes it hard to quickly grasp whether it's day or night for someone in another part of the world. The interactive 3D globe calculates the solar terminator in real time, showing where daylight falls across the Earth so users can tell at a glance if a contact is likely awake, in daylight, or asleep before calling.
+5. **Visual sand hourglass and practical focus intervals:** Watching numbers tick down second-by-second can be distracting when trying to focus. A visual sand animation provides a calmer representation of time passing. I included practical intervals (12m short sprint, 24m & 25m standard focus/Pomodoro blocks, 48m extended sessions, and 90m deep work blocks), alongside a custom dial allowing 1 to 180 minutes.
+6. **Calm synthesized acoustic tones with preview:** Default mobile alarms are often sharp, piercing beeps. I built a lightweight, on-device audio generator that synthesizes smooth, warm harmonic tones (generating 16-bit PCM waveforms at 432 Hz, 528 Hz, and 639 Hz without bundled heavy audio assets). I also placed an inline 'Preview Tone' button right on the alarm card so users can comfortably test the sound and volume before setting an alarm.
+7. **Possible future improvements:** The current implementation focuses exclusively on Android to leverage low-level OS capabilities like `AlarmManager.setExactAndAllowWhileIdle` and full-screen lockscreen wake intents. A natural next step would be exploring an iOS port using `UserNotifications` and iOS 16.1+ Live Activities, as well as letting users import custom audio files for alarms.
 
 ---
 
@@ -187,7 +187,7 @@ cd ..
 - **Android Only:** iOS and desktop builds are not supported due to native background service dependencies.
 - **Exact Alarm Permissions:** On Android 12+ (API 31+), exact alarms require the `SCHEDULE_EXACT_ALARM` or `USE_EXACT_ALARM` permission. The app displays an in-app banner if permission is revoked.
 - **OEM Battery Restrictions:** Aggressive battery management profiles (e.g. Xiaomi MIUI, OnePlus OxygenOS, Samsung One UI) can delay background alarms unless battery optimization is set to "Unrestricted" for the app.
-- **Tested Devices:** Verified on physical Android hardware (Android 14 / API 34) and standard Android emulators.
+- **Tested Devices:** Verified on physical hardware (OnePlus 12R / CPH2585 running Android 16 / OxygenOS, API 36) and standard Android Studio emulators (API 34).
 
 ---
 
