@@ -21,18 +21,18 @@ A modern Android clock application built with Flutter and Kotlin, featuring sunr
 
 ## Demo Video
 
-🎬 **[Watch the Tidara App Demo Video](PASTE_DEMO_VIDEO_URL_HERE)** *(Google Drive / YouTube link)*
+🎬 **[Download / Watch the Tidara App Demo Video (MP4)](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4)** *(GitHub Release asset, 166 MB)*
 
 ---
 
 ## Download APK
 
-Pre-built release packages for Android:
+Pre-built release packages for Android ([GitHub Release v1.0.0](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)):
 
-- 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)** (17.54 MB) — Recommended for modern 64-bit Android phones.
-- 📦 **[Download tidara-v1.0.0-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
+- 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-arm64.apk)** (17.54 MB) — Recommended for modern 64-bit Android phones.
+- 📦 **[Download tidara-v1.0.0-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-universal.apk)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
 
-> **Installation Note:** Because this challenge submission is debug-signed for evaluation, Android Play Protect or the package installer may display an "Unrecognized app" or "Install unknown apps" prompt when sideloading. This is expected for a standalone demo build — select "Install anyway" to proceed.
+> **Installation Note:** Because this challenge submission is self-signed and distributed outside Google Play (and local fresh-clone builds fall back to debug signing), Android Play Protect or the package installer may display an "Unrecognized app" or "Install unknown apps" prompt when sideloading. This is expected for a standalone demo build — select "Install anyway" to proceed.
 
 ---
 
