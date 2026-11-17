@@ -2,9 +2,9 @@ name: Tidara Smartclock CI & Verification
 
 on:
   push:
-    branches: [ master, main ]
+    branches: [ master, main, ci-check ]
   pull_request:
-    branches: [ master, main ]
+    branches: [ master, main, ci-check ]
   workflow_dispatch:
     inputs:
       run_emulator_tests:
