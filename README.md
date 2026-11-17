@@ -27,11 +27,12 @@ A modern Android clock application built with Flutter and Kotlin, featuring sunr
 
 ## Download APK
 
-Pre-built release package for Android:
+Pre-built release packages for Android:
 
-- 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)** (17.54 MB)
+- 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)** (17.54 MB) — Recommended for modern 64-bit Android phones.
+- 📦 **[Download tidara-v1.0.0-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/tag/v1.0.0)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
 
-> **Installation Note:** To sideload this APK on Android, enable **"Install unknown apps"** for your browser or file manager when prompted.
+> **Installation Note:** Because this challenge submission is debug-signed for evaluation, Android Play Protect or the package installer may display an "Unrecognized app" or "Install unknown apps" prompt when sideloading. This is expected for a standalone demo build — select "Install anyway" to proceed.
 
 ---
 
@@ -171,7 +172,7 @@ dart format --output=none --set-exit-if-changed .
 # 2. Static Analysis (0 warnings, 0 infos)
 flutter analyze --fatal-infos --fatal-warnings
 
-# 3. Flutter Automated Test Suite (232 passed, 0 failed)
+# 3. Flutter Automated Test Suite (232 passed locally)
 flutter test
 
 # 4. Native Kotlin JVM Tests (4 passed, 0 failed)
@@ -180,6 +181,8 @@ cd android
 cd ..
 ```
 
+> **Testing Note:** All 232 Dart tests pass locally on Windows. On Linux CI runners (`ubuntu-latest`), 220 tests pass and 12 golden screenshot-comparison tests are skipped (`skip: !Platform.isWindows`) because cross-platform font rasterization differences across Linux and Windows prevent pixel-exact rendering matches.
+
 ---
 
 ## Limitations
@@ -187,7 +190,7 @@ cd ..
 - **Android Only:** iOS and desktop builds are not supported due to native background service dependencies.
 - **Exact Alarm Permissions:** On Android 12+ (API 31+), exact alarms require the `SCHEDULE_EXACT_ALARM` or `USE_EXACT_ALARM` permission. The app displays an in-app banner if permission is revoked.
 - **OEM Battery Restrictions:** Aggressive battery management profiles (e.g. Xiaomi MIUI, OnePlus OxygenOS, Samsung One UI) can delay background alarms unless battery optimization is set to "Unrestricted" for the app.
-- **Tested Devices:** Verified on physical hardware (OnePlus 12R / CPH2585 running Android 16 / OxygenOS, API 36) and standard Android Studio emulators (API 34).
+- **Tested Hardware:** Verified on a physical OnePlus 12R (CPH2585) running Android 16 (OxygenOS, API 36).
 
 ---
 

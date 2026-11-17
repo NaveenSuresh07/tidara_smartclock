@@ -437,7 +437,7 @@ void main() {
           findsOneWidget,
         );
         expect(
-          find.byTooltip('Settings, Permissions & Vedic Guide'),
+          find.byTooltip('Settings, Permissions & Guide'),
           findsOneWidget,
         );
 

@@ -171,8 +171,8 @@ class TopStatusBar extends StatelessWidget {
                           ? palette.textPrimary
                           : palette.textSecondary),
                 palette: palette,
-                tooltip: 'Settings, Permissions & Vedic Guide',
-                semanticLabel: 'Open Settings and Vedic Horology Glossary',
+                tooltip: 'Settings, Permissions & Guide',
+                semanticLabel: 'Open Settings and Time & Focus Guide',
                 width: 36,
                 height: 36,
                 minWidth: 40,
