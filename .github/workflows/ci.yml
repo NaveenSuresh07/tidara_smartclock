@@ -57,6 +57,7 @@ jobs:
       - name: Run Android Kotlin JVM Unit Tests
         run: |
           cd android
+          chmod +x gradlew
           ./gradlew :app:testDebugUnitTest
 
       - name: Verify Test Coverage Threshold (>= 74.5%)
