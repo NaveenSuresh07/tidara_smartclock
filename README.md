@@ -23,7 +23,7 @@ An Android clock app built with Flutter and Kotlin, featuring sunrise-based alar
 
 ## Demo Video
 
-🎬 **[Watch the Tidara App Demo Video (MP4, 2.96 MB)](https://naveensuresh07.github.io/tidara_smartclock/demo.mp4)** · [Direct download from GitHub Releases](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.1/tidara-v1.0.1-demo.mp4)
+🎬 **[Watch the Tidara App Demo Video (MP4, 2.65 MB)](https://naveensuresh07.github.io/tidara_smartclock/demo.mp4)** · [Direct download from GitHub Releases](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.1/tidara-v1.0.1-demo.mp4)
 
 ---
 
