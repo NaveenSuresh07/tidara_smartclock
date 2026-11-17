@@ -349,7 +349,6 @@ class TidaraShellScreenState extends State<TidaraShellScreen>
     required CircadianEphemeris alarmEphem,
     required WorldCity alarmHomeCity,
     required bool use24HourFormat,
-    required bool plainLanguageVedic,
   }) {
     switch (activeIndex) {
       case 0:
@@ -363,7 +362,6 @@ class TidaraShellScreenState extends State<TidaraShellScreen>
               wakeMinutes: alarmState.wakeMinutes,
               alarms: alarmState.alarms,
               use24HourFormat: use24HourFormat,
-              plainLanguageVedic: plainLanguageVedic,
               customMusicName: context
                   .read<FocusTimerCubit>()
                   .state
@@ -638,8 +636,6 @@ class TidaraShellScreenState extends State<TidaraShellScreen>
                                   alarmEphem: alarmEphem,
                                   alarmHomeCity: alarmState.homeCity,
                                   use24HourFormat: prefState.use24HourFormat,
-                                  plainLanguageVedic:
-                                      prefState.plainLanguageVedic,
                                 ),
                               ),
                             ),
@@ -666,7 +662,6 @@ class TidaraShellScreenState extends State<TidaraShellScreen>
                           alarmHomeCity: alarmState.homeCity,
                           use24HourFormat: prefState.use24HourFormat,
                           highContrastMode: prefState.highContrastMode,
-                          plainLanguageVedic: prefState.plainLanguageVedic,
                           enableDebugDiagnostics:
                               kDebugMode && kShowSecurityDiagnostics,
                           onOpenSecurityDiagnostics: () {
@@ -675,7 +670,6 @@ class TidaraShellScreenState extends State<TidaraShellScreen>
                           },
                           onToggle24Hour: prefCubit.toggle24HourFormat,
                           onToggleHighContrast: prefCubit.toggleHighContrast,
-                          onTogglePlainLanguage: prefCubit.togglePlainLanguage,
                           onSelectAlarmHomeCity: alarmCubit.setHomeCity,
                           onClose: () => prefCubit.toggleSettingsModal(false),
                         ),

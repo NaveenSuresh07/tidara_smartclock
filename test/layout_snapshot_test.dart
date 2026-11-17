@@ -56,7 +56,6 @@ void main() {
                 wakeMinutes: 330,
                 alarms: const [testAlarm],
                 use24HourFormat: false,
-                plainLanguageVedic: false,
                 customMusicName: null,
                 onWakeMinutesChanged: (_) {},
                 onSaveAlarm: (_) {},
@@ -123,7 +122,6 @@ void main() {
                 wakeMinutes: 330,
                 alarms: const [], // empty alarms to show Arm CTA
                 use24HourFormat: false,
-                plainLanguageVedic: false,
                 customMusicName: null,
                 onWakeMinutesChanged: (_) {},
                 onSaveAlarm: (_) {},

@@ -60,7 +60,6 @@ class SmartAlarmTab extends StatelessWidget {
   final int wakeMinutes;
   final List<AlarmRhythm> alarms;
   final bool use24HourFormat;
-  final bool plainLanguageVedic;
   final String? customMusicName;
   final ValueChanged<int> onWakeMinutesChanged;
   final ValueChanged<AlarmRhythm> onSaveAlarm;
@@ -97,7 +96,6 @@ class SmartAlarmTab extends StatelessWidget {
     required this.wakeMinutes,
     required this.alarms,
     required this.use24HourFormat,
-    required this.plainLanguageVedic,
     required this.customMusicName,
     required this.onWakeMinutesChanged,
     required this.onSaveAlarm,
@@ -304,7 +302,6 @@ class SmartAlarmTab extends StatelessWidget {
             sunriseMinutesFromMidnight: alarmEphem.sunriseLocalMinutes,
             palette: palette,
             use24Hour: use24HourFormat,
-            plainLanguage: plainLanguageVedic,
             onChangeWakeMinutes: onWakeMinutesChanged,
           ),
           const SizedBox(height: 10),

@@ -51,7 +51,6 @@ void main() {
                 wakeMinutes: 330,
                 alarms: const [testAlarm],
                 use24HourFormat: false,
-                plainLanguageVedic: false,
                 customMusicName: null,
                 canScheduleExact: false, // warning banner shown
                 onOpenExactAlarmSettings: () => openSettingsCalled = true,
@@ -195,10 +194,8 @@ void main() {
                   alarmHomeCity: testCity,
                   use24HourFormat: false,
                   highContrastMode: false,
-                  plainLanguageVedic: true,
                   onToggle24Hour: (v) => toggled24 = v,
                   onToggleHighContrast: (_) {},
-                  onTogglePlainLanguage: (_) {},
                   onSelectAlarmHomeCity: (_) {},
                   onClose: () => closed = true,
                 ),
@@ -212,6 +209,7 @@ void main() {
 
       expect(find.text('Settings & Guide'), findsOneWidget);
       expect(find.text('24-Hour Time Format'), findsOneWidget);
+      expect(find.text('Plain-Language Labels'), findsNothing);
 
       final switch24 = find.byType(Switch).first;
       await tester.tap(switch24);
@@ -292,7 +290,6 @@ void main() {
               wakeMinutes: 360,
               alarms: const [testAlarm],
               use24HourFormat: true,
-              plainLanguageVedic: false,
               customMusicName: null,
               onWakeMinutesChanged: (_) {},
               onSaveAlarm: (_) {},
@@ -393,7 +390,6 @@ void main() {
                 sunriseMinutesFromMidnight: 360,
                 palette: palette,
                 use24Hour: true,
-                plainLanguage: false,
                 onChangeWakeMinutes: (_) {},
               ),
             ),

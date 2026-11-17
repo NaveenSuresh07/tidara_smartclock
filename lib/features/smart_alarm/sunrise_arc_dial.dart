@@ -12,7 +12,6 @@ class SunriseArcDialWidget extends StatelessWidget {
   final int sunriseMinutesFromMidnight;
   final TidaraPalette palette;
   final bool use24Hour;
-  final bool plainLanguage;
   final ValueChanged<int> onChangeWakeMinutes;
 
   const SunriseArcDialWidget({
@@ -21,7 +20,6 @@ class SunriseArcDialWidget extends StatelessWidget {
     required this.sunriseMinutesFromMidnight,
     required this.palette,
     required this.use24Hour,
-    required this.plainLanguage,
     required this.onChangeWakeMinutes,
   });
 
