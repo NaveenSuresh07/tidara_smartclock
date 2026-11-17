@@ -23,7 +23,7 @@ An Android clock app built with Flutter and Kotlin, featuring sunrise-based alar
 
 ## Demo Video
 
-🎬 **[Download / Watch the Tidara App Demo Video (MP4)](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4)** *(GitHub Release asset, 2.96 MB)*
+🎬 **[Watch the Tidara App Demo Video (MP4, 2.96 MB)](https://naveensuresh07.github.io/tidara_smartclock/demo.mp4)** · [Direct download from GitHub Releases](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4)
 
 ---
 
@@ -78,7 +78,7 @@ Scan to open the mobile download page:
 - **Dual-Mode Liquid Glass UI:** Translucent glass cards and buttons in Warm Light (`#F4F0E8`) and Deep Dark (`#14110F`) palettes.
 - **Accessibility & Contrast:** Primary and secondary text meet standard WCAG 2.1 AA contrast ratios (primary text exceeding 14:1, secondary text at 4.5:1, and large interactive buttons exceeding 3:1).
 - **High-Contrast Mode Setting:** Optional toggle for users who need maximum contrast without translucency.
-- **Plain-Language Labels:** Everyday English labels are enabled by default across all screens (with a Plain-Language Labels preference toggle in Settings).
+- **Plain-Language Labels:** Everyday English titles and actions are used across all screens by default (with a Plain-Language Labels preference stored in Settings).
 
 ---
 
@@ -88,7 +88,7 @@ Scan to open the mobile download page:
 
 1. **Alarms tied to sunrise and target sleep duration:** Most clock apps require calculating morning alarms and bedtime backwards in your head. I designed the alarm dial to visually tie wake-up times to local dawn, alongside a target sleep duration indicator (defaulting to 7h 45m). This gives users a direct visual reference between when they want to wake up, local daylight, and when they should wind down in the evening.
 2. **Legibility first (WCAG 2.1 AA) and high-contrast support:** Translucent and frosted glass aesthetics often suffer from low contrast. I benchmarked the palette to maintain standard WCAG AA contrast (primary text exceeds 14:1, secondary text meets 4.5:1, and large interactive buttons exceed 3:1). I also implemented an optional High-Contrast toggle that replaces translucency with solid surfaces for users who prioritize maximum readability in direct sunlight or with visual impairments.
-3. **Plain-language labels by default:** Technical astronomical terms can make everyday clock actions harder to scan. Plain-language labels are enabled by default in preferences (surfaced as a toggle in Settings), presenting straightforward titles and actions across the app—such as "Alarms & Rhythms", "Set 05:30 AM Alarm", "Optimal Sleep Window", "Focus & Sand Timer", "Start Focus", and "Chronometer".
+3. **Plain-language labels throughout the app:** Technical astronomical terms can make everyday clock actions harder to scan. Plain-language mode defaults to on (`true`), and every screen uses everyday English titles and actions consistently—"Alarms & Rhythms", "Sunrise Tone", "Set 05:30 AM Alarm", "Optimal Sleep Window", "Focus & Sand Timer", "Start Focus", and "Chronometer" (a Settings switch persists the preference while keeping clear English labels across all screens).
 4. **Interactive globe showing day and night:** A plain list of timezones and GMT offsets makes it hard to quickly grasp whether it's day or night for someone in another part of the world. The interactive 3D globe calculates the solar terminator in real time, showing where daylight falls across the Earth so users can tell at a glance if a contact is likely awake, in daylight, or asleep before calling.
 5. **Visual sand hourglass and practical focus intervals:** Watching numbers tick down second-by-second can be distracting when trying to focus. A visual sand animation provides a calmer representation of time passing. I included practical intervals (12m short sprint, 24m & 25m standard focus/Pomodoro blocks, 48m extended sessions, and 90m deep work blocks), alongside a custom dial allowing 1 to 180 minutes.
 6. **Calm synthesized tones with preview:** Default mobile alarms are often sharp, piercing beeps. I built a lightweight, on-device audio generator that synthesizes smooth, warm harmonic tones (generating 16-bit PCM waveforms at 432 Hz, 528 Hz, and 639 Hz without bundled heavy audio assets). I also placed a "Sunrise Tone" preview button at the top of the Alarms screen so users can comfortably test the sound and volume before setting an alarm.
@@ -154,7 +154,7 @@ flowchart TD
     Receiver --> AlarmMgr
 ```
 
-- **Persistence Coalescing:** The `HorologicalStateCoordinator` subscribes to all feature cubits and buffers state updates with a 300ms debounce, reducing redundant flash storage writes.
+- **Persistence Coalescing:** The state coordinator (`lib/core/services/state_coordinator.dart`) subscribes to all feature cubits and buffers state updates with a 300ms debounce, reducing redundant flash storage writes.
 - **Authenticated Storage:** Application state is encrypted at rest using AES-256-GCM with unique 96-bit CSPRNG nonces per write, backed by the Android Keystore via `flutter_secure_storage`.
 - **Power Optimization:** Observes `AppLifecycleState` via `WidgetsBindingObserver` to halt 1Hz tickers when the app is paused, reducing idle battery drain.
 
@@ -196,7 +196,7 @@ cd ..
 - **Android Only:** iOS and desktop builds are not supported due to native background service dependencies.
 - **Exact Alarm Permissions:** On Android 12+ (API 31+), exact alarms require the `SCHEDULE_EXACT_ALARM` or `USE_EXACT_ALARM` permission. The app displays an in-app banner if permission is revoked.
 - **OEM Battery Restrictions:** Aggressive battery management profiles (e.g. Xiaomi MIUI, OnePlus OxygenOS, Samsung One UI) can delay background alarms unless battery optimization is set to "Unrestricted" for the app.
-- **Tested Hardware:** Verified on a physical OnePlus 12R (CPH2585) running Android 16 (OxygenOS, API 36).
+- **Tested Device:** Verified on a physical OnePlus 12R (CPH2585) running Android 16 (OxygenOS, API 36).
 
 ---
 
