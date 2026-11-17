@@ -347,7 +347,6 @@ void main() {
                   ),
                 ],
                 use24HourFormat: false,
-                plainLanguageVedic: false,
                 customMusicName: null,
                 onWakeMinutesChanged: (_) {},
                 onSaveAlarm: (_) {},

@@ -16,13 +16,11 @@ class SettingsAndGlossaryModal extends StatelessWidget {
   final WorldCity alarmHomeCity;
   final bool use24HourFormat;
   final bool highContrastMode;
-  final bool plainLanguageVedic;
   final bool enableDebugDiagnostics;
   final bool? showDiagnosticsOverride;
   final VoidCallback? onOpenSecurityDiagnostics;
   final ValueChanged<bool> onToggle24Hour;
   final ValueChanged<bool> onToggleHighContrast;
-  final ValueChanged<bool> onTogglePlainLanguage;
   final ValueChanged<WorldCity> onSelectAlarmHomeCity;
   final VoidCallback onClose;
 
@@ -33,13 +31,11 @@ class SettingsAndGlossaryModal extends StatelessWidget {
     required this.alarmHomeCity,
     required this.use24HourFormat,
     required this.highContrastMode,
-    required this.plainLanguageVedic,
     this.enableDebugDiagnostics = kDebugMode && kShowSecurityDiagnostics,
     this.showDiagnosticsOverride,
     this.onOpenSecurityDiagnostics,
     required this.onToggle24Hour,
     required this.onToggleHighContrast,
-    required this.onTogglePlainLanguage,
     required this.onSelectAlarmHomeCity,
     required this.onClose,
   });
@@ -159,39 +155,6 @@ class SettingsAndGlossaryModal extends StatelessWidget {
                         Switch(
                           value: highContrastMode,
                           onChanged: onToggleHighContrast,
-                          activeColor: palette.accentPrimary,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Plain-Language Labels',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: palette.textPrimary,
-                                ),
-                              ),
-                              Text(
-                                'Show standard English titles across dials and presets',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: palette.textSecondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Switch(
-                          value: plainLanguageVedic,
-                          onChanged: onTogglePlainLanguage,
                           activeColor: palette.accentPrimary,
                         ),
                       ],

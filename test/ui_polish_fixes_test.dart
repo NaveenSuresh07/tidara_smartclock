@@ -327,7 +327,6 @@ void main() {
                 wakeMinutesFromMidnight: 360,
                 sunriseMinutesFromMidnight: sunrise,
                 use24Hour: false,
-                plainLanguage: true,
                 onChangeWakeMinutes: (_) {},
               ),
             ),
@@ -345,7 +344,6 @@ void main() {
                 wakeMinutesFromMidnight: 361,
                 sunriseMinutesFromMidnight: sunrise,
                 use24Hour: false,
-                plainLanguage: true,
                 onChangeWakeMinutes: (_) {},
               ),
             ),
@@ -366,28 +364,6 @@ void main() {
                 wakeMinutesFromMidnight: 425,
                 sunriseMinutesFromMidnight: sunrise,
                 use24Hour: false,
-                plainLanguage: true,
-                onChangeWakeMinutes: (_) {},
-              ),
-            ),
-          ),
-        );
-        await tester.pumpAndSettle();
-        expect(
-          find.text('Post-Sunrise Morning | 65m after sunrise'),
-          findsOneWidget,
-        );
-
-        // Case D: Classical mode for 65 minutes after sunrise
-        await tester.pumpWidget(
-          MaterialApp(
-            home: Scaffold(
-              body: SunriseArcDialWidget(
-                palette: palette,
-                wakeMinutesFromMidnight: 425,
-                sunriseMinutesFromMidnight: sunrise,
-                use24Hour: false,
-                plainLanguage: false,
                 onChangeWakeMinutes: (_) {},
               ),
             ),
@@ -476,7 +452,6 @@ void main() {
                 wakeMinutes: 330,
                 alarms: testAlarms,
                 use24HourFormat: false,
-                plainLanguageVedic: false,
                 customMusicName: null,
                 onWakeMinutesChanged: (_) {},
                 onSaveAlarm: (_) {},
@@ -539,12 +514,10 @@ void main() {
                     alarmHomeCity: testCity,
                     use24HourFormat: false,
                     highContrastMode: false,
-                    plainLanguageVedic: true,
                     enableDebugDiagnostics: false, // Simulates release mode
                     onOpenSecurityDiagnostics: () {},
                     onToggle24Hour: (_) {},
                     onToggleHighContrast: (_) {},
-                    onTogglePlainLanguage: (_) {},
                     onSelectAlarmHomeCity: (_) {},
                     onClose: () {},
                   ),
