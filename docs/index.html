@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tidara Smartclock — Android Clock App</title>
+  <meta name="description" content="An Android clock app with sunrise-based alarms, a 3D world clock, a focus timer and a stopwatch." />
+  <style>
+    :root {
+      --bg: #F4F0E8;
+      --surface: #EAE4D7;
+      --card: #FFFFFF;
+      --text: #1C1917;
+      --muted: #4E463C;
+      --accent: #A63B17;
+      --accent-hover: #8C3011;
+      --accent-fg: #FFFFFF;
+      --border: #CFC7B8;
+      --shadow: 0 4px 16px rgba(28, 25, 23, 0.08);
+      --radius: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14110F;
+        --surface: #1F1B18;
+        --card: #26211D;
+        --text: #F4F0E8;
+        --muted: #C4BCB0;
+        --accent: #E87148;
+        --accent-hover: #F2855E;
+        --accent-fg: #14110F;
+        --border: #3B342E;
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    a:hover, a:focus-visible {
+      color: var(--accent-hover);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 16px 0 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.85rem, 6vw, 2.75rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      margin: 0 auto 24px;
+      max-width: 580px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .download-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      box-shadow: var(--shadow);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .download-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .download-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 320px;
+      min-height: 48px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      background-color: var(--accent);
+      color: var(--accent-fg);
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover, .btn-primary:focus-visible {
+      background-color: var(--accent-hover);
+      color: var(--accent-fg);
+    }
+
+    .apk-meta {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .install-note {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .qr-box img {
+      width: 112px;
+      height: 112px;
+      border-radius: 10px;
+      background: #FFFFFF;
+      padding: 6px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .qr-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    section {
+      margin-top: 40px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .screens-row {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 4px 2px 14px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screen-figure {
+      flex: 0 0 215px;
+      margin: 0;
+      scroll-snap-align: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .screen-figure img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .screen-figure figcaption {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .video-card video {
+      width: 100%;
+      max-height: 540px;
+      border-radius: 10px;
+      background: #000000;
+      display: block;
+    }
+
+    .video-fallback {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .decisions-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .decisions-list li {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.95rem;
+    }
+
+    .decisions-list strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .repo-link-wrap {
+      margin-top: 16px;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .container {
+        padding: 36px 24px 56px;
+      }
+
+      .download-card {
+        padding: 24px;
+      }
+
+      .download-layout {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+
+      .download-actions {
+        align-items: flex-start;
+      }
+    }
+
+    @media (min-width: 820px) {
+      .screens-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        overflow-x: visible;
+      }
+
+      .screen-figure {
+        flex: initial;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <span class="badge">Android (API 24+) &middot; v1.0.0</span>
+      <h1>Tidara Smartclock</h1>
+      <p class="tagline">An Android clock app with sunrise-based alarms, a 3D world clock, a focus timer and a stopwatch.</p>
+
+      <div class="download-card">
+        <div class="download-layout">
+          <div class="download-actions">
+            <a class="btn-primary" href="https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-arm64.apk">
+              Download APK (arm64 &middot; 17.54 MB)
+            </a>
+            <p class="apk-meta">
+              Recommended for modern 64-bit Android phones. Need older/other architectures?
+              <a href="https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-universal.apk">Download universal APK (49.4 MB)</a>
+            </p>
+          </div>
+
+          <div class="qr-box">
+            <img src="qr.png" width="112" height="112" alt="QR code linking to this Tidara Smartclock download page" />
+            <p class="qr-caption">Scan on phone</p>
+          </div>
+        </div>
+
+        <p class="install-note">
+          <strong>Installation Note:</strong> Signed with a personal key and not distributed through Google Play, so Android may show an unknown-app warning when you sideload it. Choose 'Install anyway' to continue.
+        </p>
+      </div>
+    </header>
+
+    <section aria-labelledby="screenshots-heading">
+      <h2 id="screenshots-heading">Screenshots</h2>
+      <div class="screens-row">
+        <figure class="screen-figure">
+          <img src="screenshots/01_alarms.png" alt="Tidara Smartclock Alarms and Sunrise Arc screen" loading="lazy" />
+          <figcaption>Alarms &amp; Sunrise Arc</figcaption>
+        </figure>
+        <figure class="screen-figure">
+          <img src="screenshots/02_world_clock.png" alt="Tidara Smartclock 3D World Clock screen" loading="lazy" />
+          <figcaption>World Clock</figcaption>
+        </figure>
+        <figure class="screen-figure">
+          <img src="screenshots/03_focus_timer.png" alt="Tidara Smartclock Focus and Sand Timer screen" loading="lazy" />
+          <figcaption>Focus &amp; Sand Timer</figcaption>
+        </figure>
+        <figure class="screen-figure">
+          <img src="screenshots/04_chronometer.png" alt="Tidara Smartclock Stopwatch and Chronometer screen" loading="lazy" />
+          <figcaption>Chronometer</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="demo-heading">
+      <h2 id="demo-heading">Watch the demo</h2>
+      <div class="video-card">
+        <video controls preload="metadata" playsinline>
+          <source src="https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4" type="video/mp4" />
+          Your browser does not support inline HTML5 video playback.
+        </video>
+        <p class="video-fallback">
+          Having trouble playing inline?
+          <a href="https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-demo.mp4">Download or open the demo video (MP4) directly</a>.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="design-heading">
+      <h2 id="design-heading">Design decisions</h2>
+      <ul class="decisions-list">
+        <li>
+          <strong>Alarms tied to sunrise and target sleep duration</strong>
+          The sunrise arc dial visually connects wake-up times to local dawn alongside a target sleep duration card (defaulting to 7h 45m), removing mental math when planning morning alarms and evening wind-down.
+        </li>
+        <li>
+          <strong>Legibility first (WCAG 2.1 AA) with high-contrast support</strong>
+          Frosted surfaces are benchmarked to keep primary and secondary text readable in both light and dark modes, with a dedicated High-Contrast toggle that replaces translucency with solid surfaces.
+        </li>
+        <li>
+          <strong>Interactive 3D globe and calmer focus sand timer</strong>
+          A live day/night globe lets you see at a glance whether a contact is in daylight or asleep, while the sand hourglass pairs visual progress with practical 12m, 24m, 25m, 48m, 90m, and custom intervals.
+        </li>
+      </ul>
+      <p class="repo-link-wrap">
+        Explore the source code, architecture notes, and automated test suite on
+        <a href="https://github.com/NaveenSuresh07/tidara_smartclock">GitHub</a>.
+      </p>
+    </section>
+
+    <footer>
+      <span>Built by Naveen Suresh</span>
+      <nav class="footer-links" aria-label="Author links">
+        <a href="https://github.com/NaveenSuresh07">GitHub</a>
+        <a href="https://www.linkedin.com/in/naveensuresh07/">LinkedIn</a>
+      </nav>
+    </footer>
+  </main>
+</body>
+</html>
