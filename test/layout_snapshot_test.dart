@@ -436,10 +436,7 @@ void main() {
           find.byTooltip('Mute UI/Ambient (Alarms still ring)'),
           findsOneWidget,
         );
-        expect(
-          find.byTooltip('Settings, Permissions & Guide'),
-          findsOneWidget,
-        );
+        expect(find.byTooltip('Settings, Permissions & Guide'), findsOneWidget);
 
         // Chrono and Focus chips in TopStatusBar
         final chronoChipFinder = find.text(' Chrono');
