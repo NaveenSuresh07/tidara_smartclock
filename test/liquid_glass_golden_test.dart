@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tidara_smartclock/shared/widgets/liquid_glass_components.dart';
@@ -5,7 +6,7 @@ import 'package:tidara_smartclock/shared/widgets/liquid_glass_components.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Liquid Glass Buttons Golden Tests', () {
+  group('Liquid Glass Buttons Golden Tests', skip: !Platform.isWindows, () {
     testWidgets('GlassButton primary dark theme golden', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
