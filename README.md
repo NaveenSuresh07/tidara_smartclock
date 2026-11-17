@@ -7,7 +7,9 @@
 [![Tests](https://img.shields.io/badge/Tests-232%20Passed%20%7C%200%20Failed-brightgreen)](test/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A modern Android clock application built with Flutter and Kotlin, featuring sunrise-aligned alarms, an interactive world clock with day/night visualization, a focus timer with animated sand physics, and a precision chronometer.
+An Android clock app built with Flutter and Kotlin, featuring sunrise-based alarms, a 3D world clock with day/night projection, a focus hourglass timer, and a stopwatch.
+
+🌐 **Landing page:** [https://naveensuresh07.github.io/tidara_smartclock/](https://naveensuresh07.github.io/tidara_smartclock/)
 
 ---
 
@@ -32,7 +34,11 @@ Pre-built release packages for Android ([GitHub Release v1.0.0](https://github.c
 - 📦 **[Download tidara-v1.0.0-arm64.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-arm64.apk)** (17.54 MB) — Recommended for modern 64-bit Android phones.
 - 📦 **[Download tidara-v1.0.0-universal.apk](https://github.com/NaveenSuresh07/tidara_smartclock/releases/download/v1.0.0/tidara-v1.0.0-universal.apk)** (49.4 MB) — Universal build supporting all architectures (arm64, armv7, x86_64) for older or unusual devices.
 
-> **Installation Note:** Because this challenge submission is self-signed and distributed outside Google Play (and local fresh-clone builds fall back to debug signing), Android Play Protect or the package installer may display an "Unrecognized app" or "Install unknown apps" prompt when sideloading. This is expected for a standalone demo build — select "Install anyway" to proceed.
+> **Installation Note:** Signed with a personal key and not distributed through Google Play, so Android may show an unknown-app warning when you sideload it. Choose 'Install anyway' to continue.
+
+Scan to open the mobile download page:
+
+<img src="docs/qr.png" width="140" alt="QR code for Tidara Smartclock download page"/>
 
 ---
 
@@ -48,7 +54,7 @@ Pre-built release packages for Android ([GitHub Release v1.0.0](https://github.c
 
 ### 2. World Clock with Day & Night Projection
 - **3D Globe:** 3D orthographic projection of the globe with solar terminator curves showing live daylight and night regions.
-- **14 Pre-Calibrated Cities:** Quick access to global metropolises with live time delta and local sunrise countdowns.
+- **16 Built-in Cities:** Quick access to global cities with live time delta and local sunrise countdowns.
 - **Resilient City Search:** Open-Meteo REST API integration with exponential backoff retries, backed by a 24-hour TTL disk cache for seamless offline use.
 
 ### 3. Focus & Hourglass Timer
@@ -92,7 +98,7 @@ Pre-built release packages for Android ([GitHub Release v1.0.0](https://github.c
 
 ## How I Built This
 
-I designed Tidara Smartclock as part of a UX-focused mobile challenge ("Design a Clock Application"). I used AI coding tools for parts of development (scaffolding, ephemeris mathematical modeling, and test suites), while directing all product design, UX decisions, color palettes, architectural boundaries, and native Android platform integration myself.
+I designed Tidara Smartclock as part of a UX-focused mobile challenge ("Design a Clock Application"). I used AI tools for parts of development, and I reviewed, tested and directed the design decisions.
 
 ---
 
@@ -119,7 +125,7 @@ flowchart TD
     end
 
     subgraph Core ["Core Domain & Services"]
-        Coord["HorologicalStateCoordinator (300ms Debounce)"]
+        Coord["State Coordinator (300ms Debounce)"]
         Ephem["NOAA Solar Ephemeris Engine"]
         Audio["PCM Audio Synthesis (432Hz / 528Hz / 639Hz)"]
         Vault["EncryptedVault (AES-256-GCM)"]
