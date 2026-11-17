@@ -13,7 +13,7 @@ A modern Android clock application built with Flutter and Kotlin, featuring sunr
 
 ## Screenshots
 
-| Alarms & Sunrise Arc | Celestial World Clock | Focus & Sand Timer | Precision Chronometer |
+| Alarms & Sunrise Arc | World Clock | Focus & Sand Timer | Precision Chronometer |
 | :---: | :---: | :---: | :---: |
 | <img src="docs/screenshots/01_alarms.png" width="200" alt="Alarms Screen"/> | <img src="docs/screenshots/02_world_clock.png" width="200" alt="World Clock Screen"/> | <img src="docs/screenshots/03_focus_timer.png" width="200" alt="Focus Timer Screen"/> | <img src="docs/screenshots/04_chronometer.png" width="200" alt="Chronometer Screen"/> |
 
@@ -47,11 +47,11 @@ Pre-built release packages for Android:
 - **Reboot Persistence:** `TidaraBootReceiver` restores scheduled alarms after device restarts or timezone changes.
 
 ### 2. World Clock with Day & Night Projection
-- **Armillary Globe Projection:** 3D orthographic projection of the globe with solar terminator curves showing live daylight and night regions.
+- **3D Globe:** 3D orthographic projection of the globe with solar terminator curves showing live daylight and night regions.
 - **14 Pre-Calibrated Cities:** Quick access to global metropolises with live time delta and local sunrise countdowns.
 - **Resilient City Search:** Open-Meteo REST API integration with exponential backoff retries, backed by a 24-hour TTL disk cache for seamless offline use.
 
-### 3. Focus Timer & Sculptural Hourglass
+### 3. Focus & Hourglass Timer
 - **Procedural Sand Physics:** Canvas-rendered hourglass with falling sand particles and kinetic inversion.
 - **Curated Focus Presets:** Built-in quick blocks for different work modes:
   - `12m` (Sprint)
@@ -60,19 +60,19 @@ Pre-built release packages for Android:
   - `48m` (Double Interval)
   - `90m` (Deep Flow)
   - *Custom duration entry:* Supports any duration from 1 to 180 minutes.
-- **Acoustic Soundscapes:** Zero-dependency, on-device 16-bit PCM RIFF WAVE synthesis for calm focus chimes.
+- **Sound Tones:** On-device 16-bit PCM RIFF WAVE synthesis for calm focus chimes.
 
 ### 4. Precision Chronometer
-- **Monotonic Clock:** Tracks elapsed microsecond deltas independent of UI frame rates.
-- **Isolated RepaintBoundaries:** Smooth 60 FPS sweep hand and dial needle animations.
+- **Monotonic Clock:** Uses Dart's monotonic `Stopwatch` for millisecond-level timing (displayed to 0.01s precision) independent of UI frame rates.
+- **Isolated RepaintBoundaries:** Uses `RepaintBoundary` isolation designed for smooth sweep hand and dial needle animations.
 - **Lap Telemetry:** Dynamic split and lap table automatically highlighting fastest (green) and slowest (amber) laps.
-- **Haptic & Audio Ticks:** Synthesized mechanical escapement clicks on start, lap, and split.
+- **Haptic & Audio Ticks:** Synthesized escapement click audio and haptic feedback on start, stop, reset, and lap.
 
 ### 5. Design System & Accessibility
 - **Dual-Mode Liquid Glass UI:** Translucent glass cards and buttons in Warm Light (`#F4F0E8`) and Deep Dark (`#14110F`) palettes.
 - **Accessibility & Contrast:** Primary and secondary text meet standard WCAG 2.1 AA contrast ratios (primary text exceeding 14:1, secondary text at 4.5:1, and large interactive buttons exceeding 3:1).
 - **High-Contrast Mode Setting:** Optional toggle for users who need maximum contrast without translucency.
-- **Plain-Language Setting:** Toggle that simplifies all labels into everyday English.
+- **Plain-Language Labels:** Everyday English labels are enabled by default across all screens (with a Plain-Language Labels preference toggle in Settings).
 
 ---
 
@@ -82,10 +82,10 @@ Pre-built release packages for Android:
 
 1. **Alarms tied to sunrise and target sleep duration:** Most clock apps require calculating morning alarms and bedtime backwards in your head. I designed the alarm dial to visually tie wake-up times to local dawn, alongside a target sleep duration indicator (defaulting to 7h 45m). This gives users a direct visual reference between when they want to wake up, local daylight, and when they should wind down in the evening.
 2. **Legibility first (WCAG 2.1 AA) and high-contrast support:** Translucent and frosted glass aesthetics often suffer from low contrast. I benchmarked the palette to maintain standard WCAG AA contrast (primary text exceeds 14:1, secondary text meets 4.5:1, and large interactive buttons exceed 3:1). I also implemented an optional High-Contrast toggle that replaces translucency with solid surfaces for users who prioritize maximum readability in direct sunlight or with visual impairments.
-3. **Plain-language labels as a configurable setting:** For a clock with solar and astronomical calculations, technical terminology (like 'solar noon', 'nautical twilight', or 'horological presets') can feel overwhelming. I built a Plain Language mode (enabled by default) that maps terms to everyday equivalents like 'Alarm', 'Focus Session', and 'Target Sleep'. Users who appreciate astronomical details can toggle the advanced horological terminology on at any time.
+3. **Plain-language labels by default:** Technical astronomical terms can make everyday clock actions harder to scan. Plain-language labels are enabled by default in preferences (surfaced as a toggle in Settings), presenting straightforward titles and actions across the app—such as "Alarms & Rhythms", "Set 05:30 AM Alarm", "Optimal Sleep Window", "Focus & Sand Timer", "Start Focus", and "Chronometer".
 4. **Interactive globe showing day and night:** A plain list of timezones and GMT offsets makes it hard to quickly grasp whether it's day or night for someone in another part of the world. The interactive 3D globe calculates the solar terminator in real time, showing where daylight falls across the Earth so users can tell at a glance if a contact is likely awake, in daylight, or asleep before calling.
 5. **Visual sand hourglass and practical focus intervals:** Watching numbers tick down second-by-second can be distracting when trying to focus. A visual sand animation provides a calmer representation of time passing. I included practical intervals (12m short sprint, 24m & 25m standard focus/Pomodoro blocks, 48m extended sessions, and 90m deep work blocks), alongside a custom dial allowing 1 to 180 minutes.
-6. **Calm synthesized acoustic tones with preview:** Default mobile alarms are often sharp, piercing beeps. I built a lightweight, on-device audio generator that synthesizes smooth, warm harmonic tones (generating 16-bit PCM waveforms at 432 Hz, 528 Hz, and 639 Hz without bundled heavy audio assets). I also placed an inline 'Preview Tone' button right on the alarm card so users can comfortably test the sound and volume before setting an alarm.
+6. **Calm synthesized tones with preview:** Default mobile alarms are often sharp, piercing beeps. I built a lightweight, on-device audio generator that synthesizes smooth, warm harmonic tones (generating 16-bit PCM waveforms at 432 Hz, 528 Hz, and 639 Hz without bundled heavy audio assets). I also placed a "Sunrise Tone" preview button at the top of the Alarms screen so users can comfortably test the sound and volume before setting an alarm.
 7. **Possible future improvements:** The current implementation focuses exclusively on Android to leverage low-level OS capabilities like `AlarmManager.setExactAndAllowWhileIdle` and full-screen lockscreen wake intents. A natural next step would be exploring an iOS port using `UserNotifications` and iOS 16.1+ Live Activities, as well as letting users import custom audio files for alarms.
 
 ---
@@ -148,15 +148,15 @@ flowchart TD
     Receiver --> AlarmMgr
 ```
 
-- **Persistence Coalescing:** The `HorologicalStateCoordinator` subscribes to all feature cubits and buffers state updates with a 300ms debounce, eliminating redundant flash storage writes.
-- **Authenticated Storage:** Application state is encrypted at rest using AES-256-GCM with unique 96-bit CSPRNG nonces per write, backed by the hardware Android Keystore via `flutter_secure_storage`.
-- **Power Optimization:** Observes `AppLifecycleState` via `WidgetsBindingObserver` to halt 1Hz tickers when the app is paused, eliminating idle battery drain.
+- **Persistence Coalescing:** The `HorologicalStateCoordinator` subscribes to all feature cubits and buffers state updates with a 300ms debounce, reducing redundant flash storage writes.
+- **Authenticated Storage:** Application state is encrypted at rest using AES-256-GCM with unique 96-bit CSPRNG nonces per write, backed by the Android Keystore via `flutter_secure_storage`.
+- **Power Optimization:** Observes `AppLifecycleState` via `WidgetsBindingObserver` to halt 1Hz tickers when the app is paused, reducing idle battery drain.
 
 ---
 
 ## Platform Support
 
-- **Supported Platform:** **Android Only** (API 24+ / Android 7.0+, recommended API 34+).
+- **Supported Platform:** **Android Only** (`minSdk = 24` / Android 7.0+, `compileSdk = 36`).
 - **Reason:** Reliable background alarms and wake-from-sleep features require low-level integration with the Android OS (`AlarmManager.setExactAndAllowWhileIdle`, `WakeLock`, and lockscreen `FullScreenIntent`). Unused default desktop and iOS templates have been removed from the repository to keep the codebase clean.
 
 ---
@@ -198,7 +198,7 @@ cd ..
 
 ### Prerequisites
 - **Flutter SDK:** 3.32.3 (Dart 3.8.1)
-- **Android SDK:** API 34+
+- **Android SDK:** API 36 (`compileSdk = 36`; supports devices on `minSdk = 24`+)
 - **JDK:** Java 17
 
 ### Setup Steps

@@ -263,7 +263,7 @@ void main() {
     );
   });
 
-  group("Phase 5 & 6 — Horological Science, Audio & Ephemeris Verification", () {
+  group("Phase 5 & 6 — Timezone, Audio & Solar Ephemeris Verification", () {
     test(
       "14. IANA Timezone Engine computes accurate offsets across reference cities",
       () {
